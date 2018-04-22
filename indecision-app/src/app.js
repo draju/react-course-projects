@@ -9,7 +9,29 @@ class IndecisionApp extends React.Component {
 			options: props.options
 		}
 	}
-	//Pass event handlers to child components so they can manipulate data of parent
+	componentDidMount(){
+		try {
+			const json = localStorage.getItem('options');
+			const options = JSON.parse(json);
+			
+			if(options){
+				this.setState(() => ({ options }));
+			}
+		}
+		catch(e){
+			//Do nothing at all
+		}
+
+	}
+	componentDidUpdate(prevProps,prevState){
+		if(prevState.options.length !== this.state.options.length){
+			const json = JSON.stringify(this.state.options)
+			localStorage.setItem('options',json);
+		}
+	}
+	componentWillUnmount(){
+		console.log('will unmount');
+	}
 	handleDeleteOptions(){
 		this.setState(() => ({ options: [] }));
 	}
@@ -92,17 +114,18 @@ const Action = (props) => {
 const Options = (props) => {
 	return (
 		<div>
-		{
-			props.options.map((option) => 
-			(
-				<Option 
-					key={option} 
-					optionText={option}
-					handleDeleteOption={props.handleDeleteOption}
-				/>
-			))
-		}
-		<button onClick={props.handleDeleteOptions}>Remove All</button>
+			<button onClick={props.handleDeleteOptions}>Remove All</button>
+			{ props.options.length === 0 && <p>Please add an option to get started</p> }
+			{
+				props.options.map((option) => 
+				(
+					<Option 
+						key={option} 
+						optionText={option}
+						handleDeleteOption={props.handleDeleteOption}
+					/>
+				))
+			}		
 		</div>
 	);
 };
@@ -135,8 +158,10 @@ class AddOption extends React.Component {
 		const option = e.target.elements.option.value.trim(); 
 		const error = this.props.handleAddOption(option);
 		
-		if(error){
-			this.setState(() => ({ error }));
+		this.setState(() => ({ error }));
+		
+		if(!error){
+			e.target.elements.option.value = '';
 		}
 	}
 	render(){
