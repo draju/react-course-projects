@@ -1,3 +1,4 @@
 indecision-app/node_modules
 indecision-app/public/scripts/app.js
+indecision-app/public/bundle.js
 yarn-error.log
