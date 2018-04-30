@@ -8,3 +8,11 @@ body {
     font-size: $m-size;
 }
 
+button {
+    cursor: pointer;
+    font-family: Helvetica, Arial, sans-serif; /* not sure why needed */
+}
+
+button:disabled {
+    cursor: default;
+}
