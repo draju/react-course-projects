@@ -1,4 +1,10 @@
 indecision-app/node_modules
 indecision-app/public/scripts/app.js
 indecision-app/public/bundle.js
+expensify-app/node_modules
+expensify-app/public/scripts/app.js
+expensify-app/public/bundle.js
+boilerplate-v1/node_modules
+boilerplate-v1/public/scripts/app.js
+boilerplate-v1/public/bundle.js
 yarn-error.log
